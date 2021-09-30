@@ -551,6 +551,8 @@ AWS ECR 적용 현황
 
 EKS에 배포된 내용
 ![4](https://user-images.githubusercontent.com/88864503/133554057-b6c08a0a-04ce-4dd5-bc47-f01e9776373d.JPG)
+다시 캡쳐
+
 
 ## ConfigMap 설정
 
