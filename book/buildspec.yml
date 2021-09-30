@@ -2,8 +2,8 @@ version: 0.2
 
 env:
   variables:
-    _PROJECT_NAME: "book"
-    _DIR_NAME: "book"
+    _PROJECT_NAME: "user10-book"
+    _DIR_NAME: "user10-book"
     _NAMESPACE: "library"
 
 phases:
