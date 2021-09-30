@@ -192,30 +192,22 @@ mvn spring-boot:run
 
 ## CQRS
 
-백신 예약/취소/매핑 등 총 Status 및 백신 종류 에 대하여 고객이 조회 할 수 있도록 CQRS 로 구현하였다.
-- reservation, approval, vaccinemgmt 개별 Aggregate Status 를 통합 조회하여 성능 Issue 를 사전에 예방할 수 있다.
+도서 예약/결제/취소 등 총 Status 및 도서 ID에 대하여 고객이 조회 할 수 있도록 CQRS 로 구현하였다.
+- rental, payment 등 개별 Aggregate Status 를 통합 조회하여 성능 Issue 를 사전에 예방할 수 있다.
 - 비동기식으로 처리되어 발행된 이벤트 기반 Kafka 를 통해 수신/처리 되어 별도 Table 에 관리한다
-- Table 모델링
- <img width="546" alt="스크린샷 2021-09-12 오후 8 11 26" src="https://user-images.githubusercontent.com/29780972/132992563-95aa9578-c953-4cbf-9b44-6397779b3466.png">
- 
+
  - mypage MSA PolicyHandler를 통해 구현
-   ("ReservationPlaced" 이벤트 발생 시, Pub/Sub 기반으로 별도 테이블에 저장)
-   
-   ![image](https://user-images.githubusercontent.com/29780972/132992616-f5e4bec9-45f8-41d1-9690-b09de491d224.png)
-   
-   
-   ("ReservationCompleted" 이벤트 발생 시, Pub/Sub 기반으로 별도 테이블에 저장)
-   ![image](https://user-images.githubusercontent.com/29780972/132992637-3eac9a68-b14e-4b79-9c79-e95e00f76645.png)
+   ("reserved" 이벤트 발생 시, Pub/Sub 기반으로 별도 테이블에 저장)   
+   ![image](https://user-images.githubusercontent.com/88864503/135394739-3a5ca6b3-ec5e-41e2-bac2-47e03f41dbff.png)
    
    
-   ("CancelCompleted" 이벤트 발생 시, Pub/Sub 기반으로 별도 테이블에 저장)
-   ![image](https://user-images.githubusercontent.com/29780972/132993526-6f462911-3825-4271-84f9-9ca62235116b.png)
+   ("statusUpdated" 이벤트 발생 시, Pub/Sub 기반으로 별도 테이블에 저장)
+   ![image](https://user-images.githubusercontent.com/88864503/135394857-9e278dfa-257e-4b01-aa5b-1ae03655c6d3.png)
 
-   
 
-- 실제로 view 페이지를 조회해 보면 모든 room에 대한 정보, 예약 상태, 결제 상태 등의 정보를 종합적으로 알 수 있다.
+- 실제로 view 페이지를 조회해 보면 모든 사용자 ID 정보, 상태, 도서ID 등 의 정보를 종합적으로 알 수 있다.
   
-  ![image](https://user-images.githubusercontent.com/29780972/132992733-dcfb3280-4f6a-4e6c-9b9b-2082067cd941.png)
+  ![image](https://user-images.githubusercontent.com/88864503/135395090-e9dc5f3c-20f8-4e25-bb4a-9a5ccc0779a1.png)
 
 
 
@@ -235,55 +227,42 @@ vaccinereservation 프로젝트에서는 PolicyHandler에서 처리 시 어떤 �
 
 아래의 구현 예제를 보면
 
-예약(Reservation)을 하면 동시에 연관된 백신관리(vaccineMgmt), 승인(approval) 등의 서비스의 상태가 적당하게 변경이 되고,
-예약건의 취소를 수행하면 다시 연관된  백신관리(vaccineMgmt), 승인(approval) 등의 서비스의 상태값 등의 데이터가 적당한 상태로 변경되는 것을
+예약(Reserved)을 하면 동시에 연관된 도서관리(Book), 결제(payment) 등의 서비스의 상태가 적당하게 변경이 되고,
+예약건의 취소를 수행하면 다시 연관된 서관리(Book), 결제(payment) 등의 서비스의 상태값 등의 데이터가 적당한 상태로 변경되는 것을
 확인할 수 있습니다.
 
-- 백신 예약 요청
-http POST http://localhost:8088/reservations customerid=OHM hospitalid=123 date=20210910
-![image](https://user-images.githubusercontent.com/29780972/133015614-0f9e7fa9-5640-4781-a7c7-76c822b27862.png)
-
-"status": "RSV_REQUESTED" 확인
+- 도서 예약 요청
+http POST localhost:8081/rentals memberId=2 bookId=2
+![image](https://user-images.githubusercontent.com/88864503/135395578-87113e6e-1f79-4cf0-8fde-3d6c93915b56.png)
 
 
-- 예약 후 - 승인 상태
-http GET http://localhost:8088/approvals  
+- 사용자 예약 후 결제확인
+http GET localhost:8082/payments/2
+![image](https://user-images.githubusercontent.com/88864503/135395697-c76f5823-1a41-41dd-b300-b64a63f9ec6d.png)
 
-![image](https://user-images.githubusercontent.com/29780972/133015696-5040a152-d1d8-4802-8fed-845eebed088d.png)
 
-"status": "APV_COMPLETED" 확인
+- 사용자 도서 예약취소
+http PATCH localhost:8081/rentals/2 reqState="cancel" 
 
-- 예약 및 승인 완료 후 - 백신 관리 상태
-http GET http://localhost:8088/vaccineMgmts      
-![image](https://user-images.githubusercontent.com/29780972/133015768-bde17c64-2505-471e-ae37-9d7e1355f48e.png)
+![image](https://user-images.githubusercontent.com/88864503/135396367-93fe35a9-3b08-4f81-afbc-29bb05e7c5b0.png)
 
-reservationID 에 맞춰 백신종류, 수량, 유통기한 등 매핑 확인
 
-- 예약 및 승인 완료 후 백신 관리까지 끝난 후 - 예약 상태
-http GET http://localhost:8088/reservations
+- 사용자 도서 예약 취소 후 - bookStatus가 "refunded" 된 것 확인
+http GET localhost:8084/books   
+![image](https://user-images.githubusercontent.com/88864503/135396723-15941d1d-559e-4902-bbbe-33bc8e9e74a4.png)
+
+
+- 사용자 도서 대여 후 - bookStatus가 "rentaled" 된 것 확인
+http PATCH localhost:8081/rentals/3 reqState="rental" 
+![image](https://user-images.githubusercontent.com/88864503/135397498-5075dda3-0475-4015-99db-322ccf2149ed.png)
+![image](https://user-images.githubusercontent.com/88864503/135397650-ce19ebd0-b0fe-4d34-ac42-95be84459850.png)
+
+
+- 사용자 도서 반납 후 - bookStatus가 "reed" 된 것 확인
+http PATCH localhost:8081/rentals/3 reqState="return"
 ![image](https://user-images.githubusercontent.com/29780972/133015883-05b0af2e-7cad-49c9-a28f-67260e739225.png)
+![image](https://user-images.githubusercontent.com/88864503/135397828-ac12ebf7-b117-4f1d-b2ea-12d6ffb21f2b.png)
 
-
-"status": "Reservation Completed" 확인
- -> 정상적으로 백신 예약이 완료 된 경우 최종 상태가 Reservaiton Completed
-
-- 예약 취소
-http PATCH http://localhost:8088/reservations/1 status=CANCEL_REQUESTED
-![image](https://user-images.githubusercontent.com/29780972/133016556-cef0467c-a654-4587-aca8-96cd0988069f.png)
-
-"status": "CANCEL_REQUESTED" 확인
-
-- 취소 후 - 백신 상태
-http GET http://localhost:8088/vaccineMgmts    
-![image](https://user-images.githubusercontent.com/29780972/133016651-286a33bb-4f4d-4621-bb30-47e9147bf032.png)
-
-취소 요청한 ID에 따라 수량 0으로 변함 및 백신 종류 등 NULL로 설정 변함 확인
-
-- 취소 후 - 예약 상태
-http GET http://localhost:8088/reservations       
-![image](https://user-images.githubusercontent.com/29780972/133016914-acdd2c05-ec7d-4d1d-ac7d-e4ec6ab3a356.png)
-
-"status": "Reservation Canceled" 
 
 
 
@@ -418,24 +397,26 @@ public void onPostPersist(){
     
 ```
 
-- 동기식 호출에서는 호출 시간에 따른 타임 커플링이 발생하며, 결제 시스템이 장애가 나면 주문도 못받는다는 것을 확인
+- 동기식 호출에서는 호출 시간에 따른 타임 커플링이 발생하며, 결제 시스템이 장애가 나면 예약도 못받는다는 것을 확인
 
 ```
 # 결제 (payment) 서비스를 잠시 내려놓음
 
-#주문처리
-http http://localhost:8081/rentals memberId=1 bookId=1  #Fail 
+#예약처리
+http POST localhost:8081/rentals memberId=4 bookId=4  #Fail 
+![image](https://user-images.githubusercontent.com/88864503/135398361-f06ffa40-2f1d-4ae0-bbdc-b11bb04acb34.png)
 
 #결제서비스 재기동
 cd payment
 mvn spring-boot:run
 
 #주문처리
-http http://localhost:8081/rentals memberId=1 bookId=1   #Success
+http POST localhost:8081/rentals memberId=4 bookId=4   #Success
+![image](https://user-images.githubusercontent.com/88864503/135398559-b694ad56-3ae2-4f9e-945d-95fb67795dc5.png)
 
 ```
 
-- 또한 과도한 요청시에 서비스 장애가 도미노 처럼 벌어질 수 있다. (서킷브레이커 처리는 운영단계에서 설명한다.)
+- 또한 과도한 요청시에 서비스 장애가 도미노 처럼 벌어질 수 있다. 
 
 
 ## 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트
@@ -492,21 +473,40 @@ public class PolicyHandler{
 ```
 #도서관리 서비스 (book) 를 잠시 내려놓음
 
-#주문처리
-http http://localhost:8081/rentals memberId=1 bookId=1  #Success  
+#예약 처리
+http POST localhost:8081/rentals memberId=5 bookId=5  #Success  
+![image](https://user-images.githubusercontent.com/88864503/135398862-48ac573d-95fa-42e0-8e33-7edd52617e60.png)
 
-#주문상태 확인  -  서비스와 상관없이 예약 상태는 정상 확인
 
 #상점 서비스 기동
 cd book
 mvn spring-boot:run
 
 #주문상태 확인
-http localhost:8080/rentals     # 모든 주문의 상태가 "reserved"으로 확인
+http GET localhost:8083/mypages/7     # 주문의 상태가 "reserved"으로 확인
+![image](https://user-images.githubusercontent.com/88864503/135399664-88d41054-9967-438c-92a9-78e7a2ac40e4.png)
+
 ```
 ## 폴리글랏 퍼시스턴스
+전체 서비스의 경우 빠른 속도와 개발 생산성을 극대화하기 위해 Spring Boot에서 기본적으로 제공하는 In-Memory DB인 H2 DB를 사용하였다.
 
+```
+package library;
 
+import javax.persistence.*;
+import org.springframework.beans.BeanUtils;
+import java.util.List;
+
+@Entity
+@Table(name="Rental_table")
+public class Rental {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;         //예약번호
+    private Long memberId;  // 사용자번호
+    private Long bookId;    // 책번호
+    private String reqState;//요청: "reserve", "cancel", "rental", "return"
 
 
 
