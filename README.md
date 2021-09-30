@@ -506,7 +506,7 @@ http GET localhost:8083/mypages/7     # 주문의 상태가 "reserved"으로 확
 
 ![image](https://user-images.githubusercontent.com/88864503/135399664-88d41054-9967-438c-92a9-78e7a2ac40e4.png)
 
-```
+
 ## 폴리글랏 퍼시스턴스
 전체 서비스의 경우 빠른 속도와 개발 생산성을 극대화하기 위해 Spring Boot에서 기본적으로 제공하는 In-Memory DB인 H2 DB를 사용하였다.
 
