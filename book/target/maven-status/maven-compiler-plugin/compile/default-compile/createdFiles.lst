@@ -1,0 +1,13 @@
+library/Paid.class
+library/PolicyHandler.class
+library/Returned.class
+library/BookApplication.class
+library/Refunded.class
+library/AbstractEvent.class
+library/Book.class
+library/BookRepository.class
+library/Rentaled.class
+library/BookController.class
+library/config/kafka/KafkaProcessor.class
+library/AbstractEvent$1.class
+library/StatusUpdated.class

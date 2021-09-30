@@ -24,7 +24,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: book
+          group: mypage
           destination: library
           contentType: application/json
         event-out:
@@ -35,9 +35,8 @@ logging:
   level:
     org.hibernate.type: trace
     org.springframework.cloud: debug
-
 server:
-  port: 8084
+  port: 8083
 ---
 
 spring:
@@ -57,7 +56,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: book
+          group: mypage
           destination: library
           contentType: application/json
         event-out:
