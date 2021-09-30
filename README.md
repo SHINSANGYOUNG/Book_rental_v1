@@ -234,6 +234,7 @@ vaccinereservation 프로젝트에서는 PolicyHandler에서 처리 시 어떤 �
 - 도서 예약 요청
 
 http POST localhost:8081/rentals memberId=2 bookId=2
+
 ![image](https://user-images.githubusercontent.com/88864503/135395578-87113e6e-1f79-4cf0-8fde-3d6c93915b56.png)
 
 
@@ -245,6 +246,7 @@ http GET localhost:8082/payments/2
 
 
 - 사용자 도서 예약취소
+
 http PATCH localhost:8081/rentals/2 reqState="cancel" 
 
 ![image](https://user-images.githubusercontent.com/88864503/135396367-93fe35a9-3b08-4f81-afbc-29bb05e7c5b0.png)
@@ -253,12 +255,14 @@ http PATCH localhost:8081/rentals/2 reqState="cancel"
 - 사용자 도서 예약 취소 후 - bookStatus가 "refunded" 된 것 확인
 
 http GET localhost:8084/books   
+
 ![image](https://user-images.githubusercontent.com/88864503/135396723-15941d1d-559e-4902-bbbe-33bc8e9e74a4.png)
 
 
 - 사용자 도서 대여 후 - bookStatus가 "rentaled" 된 것 확인
 
 http PATCH localhost:8081/rentals/3 reqState="rental" 
+
 ![image](https://user-images.githubusercontent.com/88864503/135397498-5075dda3-0475-4015-99db-322ccf2149ed.png)
 ![image](https://user-images.githubusercontent.com/88864503/135397650-ce19ebd0-b0fe-4d34-ac42-95be84459850.png)
 
@@ -266,6 +270,7 @@ http PATCH localhost:8081/rentals/3 reqState="rental"
 - 사용자 도서 반납 후 - bookStatus가 "reed" 된 것 확인
 
 http PATCH localhost:8081/rentals/3 reqState="return"
+
 ![image](https://user-images.githubusercontent.com/88864503/135397828-ac12ebf7-b117-4f1d-b2ea-12d6ffb21f2b.png)
 
 
@@ -410,15 +415,18 @@ public void onPostPersist(){
 #예약처리
 
 http POST localhost:8081/rentals memberId=4 bookId=4  #Fail 
+
 ![image](https://user-images.githubusercontent.com/88864503/135398361-f06ffa40-2f1d-4ae0-bbdc-b11bb04acb34.png)
 
 #결제서비스 재기동
+
 cd payment
 mvn spring-boot:run
 
 #주문처리
 
 http POST localhost:8081/rentals memberId=4 bookId=4   #Success
+
 ![image](https://user-images.githubusercontent.com/88864503/135398559-b694ad56-3ae2-4f9e-945d-95fb67795dc5.png)
 
 ```
@@ -481,16 +489,21 @@ public class PolicyHandler{
 #도서관리 서비스 (book) 를 잠시 내려놓음
 
 #예약 처리
+
 http POST localhost:8081/rentals memberId=5 bookId=5  #Success  
+
 ![image](https://user-images.githubusercontent.com/88864503/135398862-48ac573d-95fa-42e0-8e33-7edd52617e60.png)
 
 
 #상점 서비스 기동
+
 cd book
 mvn spring-boot:run
 
 #주문상태 확인
+
 http GET localhost:8083/mypages/7     # 주문의 상태가 "reserved"으로 확인
+
 ![image](https://user-images.githubusercontent.com/88864503/135399664-88d41054-9967-438c-92a9-78e7a2ac40e4.png)
 
 ```
