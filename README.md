@@ -495,11 +495,12 @@ http POST localhost:8081/rentals memberId=5 bookId=5  #Success
 #상점 서비스 기동
 
 cd book
+
 mvn spring-boot:run
 
-#주문상태 확인
+#주문상태 확인 - 주문의 상태가 "reserved"으로 확인
 
-http GET localhost:8083/mypages/7     # 주문의 상태가 "reserved"으로 확인
+http GET localhost:8083/mypages/7     
 
 ![image](https://user-images.githubusercontent.com/88864503/135399664-88d41054-9967-438c-92a9-78e7a2ac40e4.png)
 
