@@ -447,7 +447,7 @@ http POST localhost:8081/rentals memberId=4 bookId=4   #Success
 @Table(name="Payment_table")
 public class Payment {
 
- ...
+ 
     @PostPersist
     public void onPostPersist(){
         Paid paid = new Paid();
