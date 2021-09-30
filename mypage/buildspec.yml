@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    _PROJECT_NAME: "mypage"
+    _PROJECT_NAME: "user10-mypage"
     _DIR_NAME: "mypage"
     _NAMESPACE: "library"
 
