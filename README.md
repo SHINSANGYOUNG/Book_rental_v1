@@ -535,13 +535,19 @@ public class Rental {
 각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 AWS를 사용하였으며, pipeline build script 는 각 프로젝트 폴더 이하 buildspec.yml 에 포함되었다.
 
 AWS CodeBuild 적용 현황
-![1](https://user-images.githubusercontent.com/88864503/133553458-2ecf1f10-3c01-4b3d-bcaa-84f268f7848a.JPG)
+
+![image](https://user-images.githubusercontent.com/88864503/135461015-44fabbc0-7f19-4b06-854d-09d65d5a04d2.png)
+
 
 webhook을 통한 CI 확인
-![2](https://user-images.githubusercontent.com/88864503/133553865-81afb01b-dbec-4167-bac9-c8fd62ea5718.JPG)
+
+![image](https://user-images.githubusercontent.com/88864503/135461091-23d5bdb8-1202-4590-b532-172a8c482a3b.png)
+
 
 AWS ECR 적용 현황
-![3](https://user-images.githubusercontent.com/88864503/133553933-30d2ba69-ec96-4b26-838b-33e2d061bb70.JPG)
+
+![image](https://user-images.githubusercontent.com/88864503/135461208-ef9e250a-0faf-49e0-b0e3-1987db245af5.png)
+
 
 EKS에 배포된 내용
 ![4](https://user-images.githubusercontent.com/88864503/133554057-b6c08a0a-04ce-4dd5-bc47-f01e9776373d.JPG)
