@@ -261,7 +261,6 @@ http PATCH localhost:8081/rentals/3 reqState="rental"
 
 - 사용자 도서 반납 후 - bookStatus가 "reed" 된 것 확인
 http PATCH localhost:8081/rentals/3 reqState="return"
-![image](https://user-images.githubusercontent.com/29780972/133015883-05b0af2e-7cad-49c9-a28f-67260e739225.png)
 ![image](https://user-images.githubusercontent.com/88864503/135397828-ac12ebf7-b117-4f1d-b2ea-12d6ffb21f2b.png)
 
 
