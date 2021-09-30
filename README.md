@@ -238,6 +238,7 @@ http POST localhost:8081/rentals memberId=2 bookId=2
 
 - 사용자 예약 후 결제확인
 http GET localhost:8082/payments/2
+
 ![image](https://user-images.githubusercontent.com/88864503/135395697-c76f5823-1a41-41dd-b300-b64a63f9ec6d.png)
 
 
