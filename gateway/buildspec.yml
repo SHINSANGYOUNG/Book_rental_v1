@@ -5,7 +5,6 @@ env:
     _PROJECT_NAME: "user10-gateway"
     _DIR_NAME: "gateway"
     _NAMESPACE: "library"
-
 phases:
   install:
     runtime-versions:
@@ -56,6 +55,8 @@ phases:
                 targetPort: 8080
             selector:
               app: $_PROJECT_NAME
+            type:
+              LoadBalancer
           EOF
       - |
           cat  <<EOF | kubectl apply -f -
