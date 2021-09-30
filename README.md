@@ -232,11 +232,13 @@ vaccinereservation 프로젝트에서는 PolicyHandler에서 처리 시 어떤 �
 확인할 수 있습니다.
 
 - 도서 예약 요청
+
 http POST localhost:8081/rentals memberId=2 bookId=2
 ![image](https://user-images.githubusercontent.com/88864503/135395578-87113e6e-1f79-4cf0-8fde-3d6c93915b56.png)
 
 
 - 사용자 예약 후 결제확인
+
 http GET localhost:8082/payments/2
 
 ![image](https://user-images.githubusercontent.com/88864503/135395697-c76f5823-1a41-41dd-b300-b64a63f9ec6d.png)
@@ -249,17 +251,20 @@ http PATCH localhost:8081/rentals/2 reqState="cancel"
 
 
 - 사용자 도서 예약 취소 후 - bookStatus가 "refunded" 된 것 확인
+
 http GET localhost:8084/books   
 ![image](https://user-images.githubusercontent.com/88864503/135396723-15941d1d-559e-4902-bbbe-33bc8e9e74a4.png)
 
 
 - 사용자 도서 대여 후 - bookStatus가 "rentaled" 된 것 확인
+
 http PATCH localhost:8081/rentals/3 reqState="rental" 
 ![image](https://user-images.githubusercontent.com/88864503/135397498-5075dda3-0475-4015-99db-322ccf2149ed.png)
 ![image](https://user-images.githubusercontent.com/88864503/135397650-ce19ebd0-b0fe-4d34-ac42-95be84459850.png)
 
 
 - 사용자 도서 반납 후 - bookStatus가 "reed" 된 것 확인
+
 http PATCH localhost:8081/rentals/3 reqState="return"
 ![image](https://user-images.githubusercontent.com/88864503/135397828-ac12ebf7-b117-4f1d-b2ea-12d6ffb21f2b.png)
 
@@ -403,6 +408,7 @@ public void onPostPersist(){
 # 결제 (payment) 서비스를 잠시 내려놓음
 
 #예약처리
+
 http POST localhost:8081/rentals memberId=4 bookId=4  #Fail 
 ![image](https://user-images.githubusercontent.com/88864503/135398361-f06ffa40-2f1d-4ae0-bbdc-b11bb04acb34.png)
 
@@ -411,6 +417,7 @@ cd payment
 mvn spring-boot:run
 
 #주문처리
+
 http POST localhost:8081/rentals memberId=4 bookId=4   #Success
 ![image](https://user-images.githubusercontent.com/88864503/135398559-b694ad56-3ae2-4f9e-945d-95fb67795dc5.png)
 
