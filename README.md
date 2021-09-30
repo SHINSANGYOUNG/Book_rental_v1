@@ -420,6 +420,7 @@ http POST localhost:8081/rentals memberId=4 bookId=4  #Fail
 #결제서비스 재기동
 
 cd payment
+
 mvn spring-boot:run
 
 #주문처리
