@@ -409,7 +409,6 @@ public void onPostPersist(){
 
 - 동기식 호출에서는 호출 시간에 따른 타임 커플링이 발생하며, 결제 시스템이 장애가 나면 예약도 못받는다는 것을 확인
 
-```
 # 결제 (payment) 서비스를 잠시 내려놓음
 
 #예약처리
@@ -429,7 +428,6 @@ http POST localhost:8081/rentals memberId=4 bookId=4   #Success
 
 ![image](https://user-images.githubusercontent.com/88864503/135398559-b694ad56-3ae2-4f9e-945d-95fb67795dc5.png)
 
-```
 
 - 또한 과도한 요청시에 서비스 장애가 도미노 처럼 벌어질 수 있다. 
 
@@ -485,7 +483,6 @@ public class PolicyHandler{
 도서관리 시스템은 대여/결제와 완전히 분리되어있으며, 이벤트 수신에 따라 처리되기 때문에, 도서관리시스템이 유지보수로 인해 잠시 내려간 상태라도 주문을 받는데 문제가 없다:
 
 
-```
 #도서관리 서비스 (book) 를 잠시 내려놓음
 
 #예약 처리
@@ -528,7 +525,7 @@ public class Rental {
     private Long bookId;    // 책번호
     private String reqState;//요청: "reserve", "cancel", "rental", "return"
 
-
+```
 
 # 운영
 
