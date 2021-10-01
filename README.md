@@ -624,7 +624,7 @@ livenessProbe:
                         - /tmp/healthy
 ```
 
-
+ 
 
 
 pod 상태 확인
