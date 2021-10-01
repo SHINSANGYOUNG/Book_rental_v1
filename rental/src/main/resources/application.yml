@@ -87,4 +87,4 @@ spring:
 
 api:
   payment:
-    url: http://payment:8080
+    url: http://user10-payment:8080
