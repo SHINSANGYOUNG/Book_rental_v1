@@ -538,16 +538,16 @@ EKS에 배포된 내용
  동기 호출 URL을 ConfigMap에 등록하여 사용
 
 
- kubectl apply -f configmap
+ kubectl apply -f configmap.yml
 
 ```
  apiVersion: v1
  kind: ConfigMap
  metadata:
-   name: vaccine-configmap
-   namespace: vaccines
+   name: library-configmap
+   namespace: library
  data:
-   apiurl: "http://user02-gateway:8080"
+   apiurl: "http://user10-gateway:8080"
 
 ```
 buildspec 수정
@@ -563,19 +563,19 @@ buildspec 수정
                     - name: apiurl
                       valueFrom:
                         configMapKeyRef:
-                          name: vaccine-configmap
+                          name: library-configmap
                           key: apiurl 
                         
 ```            
 application.yml 수정
 ```
-prop:
-  aprv:
-    url: ${apiurl}
+api:
+  payment:
+    url: http://user10-payment:8080
 ``` 
 
 동기 호출 URL 실행
-![5](https://user-images.githubusercontent.com/88864503/133554760-b8d8b524-ebbf-46dc-ba32-1820cffcc023.JPG)
+
 
 ## 무정지 재배포
 
