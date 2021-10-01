@@ -550,8 +550,8 @@ AWS ECR 적용 현황
 
 
 EKS에 배포된 내용
-![4](https://user-images.githubusercontent.com/88864503/133554057-b6c08a0a-04ce-4dd5-bc47-f01e9776373d.JPG)
-다시 캡쳐
+
+![image](https://user-images.githubusercontent.com/88864503/135552563-943b932c-c7be-43ea-be86-44163496f113.png)
 
 
 ## ConfigMap 설정
@@ -605,7 +605,7 @@ prop:
 
 - seige 로 배포작업 직전에 워크로드를 모니터링 함.
 ```
-siege -c100 -t10S -v --content-type "application/json" 'http://af9a234af8e354f5299f1d049a1b21c0-1150269307.ap-northeast-1.elb.amazonaws.com:8080/reservations
+siege -c100 -t10S -v --content-type "application/json" 'http://a6e03a4aa0fc74c39b99ffd0029f751e-1359284526.ap-northeast-1.elb.amazonaws.com:8080/mypages'
 
 ```
 
@@ -623,7 +623,10 @@ siege -c100 -t10S -v --content-type "application/json" 'http://af9a234af8e354f52
 ```
 
 Customer 서비스 신규 버전으로 배포
-![9](https://user-images.githubusercontent.com/88864503/133559167-4a2ede3c-ad33-43b6-b101-8759d56dd0c4.png)
+
+![image](https://user-images.githubusercontent.com/88864503/135552823-709b76fb-f6ed-4b7f-b9e3-a538477996ee.png)
+
+![image](https://user-images.githubusercontent.com/88864503/135553042-5b6df0c5-f61a-4bad-b7a9-c1d92ac590bb.png)
 
 
 배포기간 동안 Availability 가 변화없기 때문에 무정지 재배포가 성공한 것으로 확인됨.
