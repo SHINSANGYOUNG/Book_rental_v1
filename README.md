@@ -571,10 +571,11 @@ application.yml 수정
 ```
 api:
   payment:
-    url: http://user10-payment:8080
+    url: ${apiurl}
 ``` 
 
 동기 호출 URL 실행
+![image](https://user-images.githubusercontent.com/88864503/135566641-db9520a4-e35d-469c-89a0-70855de33758.png)
 
 
 ## 무정지 재배포
