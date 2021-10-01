@@ -647,7 +647,7 @@ livenessProbe:
 ```
 
 
-![6](https://user-images.githubusercontent.com/88864503/133556583-3315fae7-de8a-4882-ad1d-8493fbd2daa8.png)
+
 
 pod 상태 확인
  
