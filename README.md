@@ -506,28 +506,6 @@ http GET localhost:8083/mypages/7
 ![image](https://user-images.githubusercontent.com/88864503/135399664-88d41054-9967-438c-92a9-78e7a2ac40e4.png)
 
 
-## 폴리글랏 퍼시스턴스
-전체 서비스의 경우 빠른 속도와 개발 생산성을 극대화하기 위해 Spring Boot에서 기본적으로 제공하는 In-Memory DB인 H2 DB를 사용하였다.
-
-```
-package library;
-
-import javax.persistence.*;
-import org.springframework.beans.BeanUtils;
-import java.util.List;
-
-@Entity
-@Table(name="Rental_table")
-public class Rental {
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;         //예약번호
-    private Long memberId;  // 사용자번호
-    private Long bookId;    // 책번호
-    private String reqState;//요청: "reserve", "cancel", "rental", "return"
-
-```
 
 # 운영
 
@@ -653,13 +631,18 @@ pod 상태 확인
  
  kubectl describe ~ 로 pod에 들어가서 아래 메시지 확인
  ```
- Warning  Unhealthy  26s (x2 over 31s)     kubelet            Liveness probe failed: cat: /tmp/healthy: No such file or directory
+ Warning  Unhealthy  66s (x5 over 86s)       kubelet, ip-192-168-50-209.ap-northeast-1.compute.internal  Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
  ```
+ 
+ ![image](https://user-images.githubusercontent.com/88864503/135554489-0232852a-7e4b-4ff1-a8da-c1cfd175aee6.png)
+ 
 
 /tmp/healthy 파일 생성
 ```
-kubectl exec -it pod/reservation-5576944554-q8jwf -n vaccines -- touch /tmp/healthy
+ kubectl exec -it pod/user10-mypage-6859dbc677-wnwt6 -n library -- touch /tmp/healthy
 ```
-![7](https://user-images.githubusercontent.com/88864503/133556724-7693dec2-41dd-430c-a3d3-389cc309bfca.png)
+
+![image](https://user-images.githubusercontent.com/88864503/135554669-f38a5f78-b20c-4dd2-bb57-2ec3667508c6.png)
+
 
 성공 확인
