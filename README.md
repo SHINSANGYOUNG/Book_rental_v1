@@ -493,7 +493,7 @@ http POST localhost:8081/rentals memberId=5 bookId=5  #Success
 ![image](https://user-images.githubusercontent.com/88864503/135398862-48ac573d-95fa-42e0-8e33-7edd52617e60.png)
 
 
-#상점 서비스 기동
+#도서관리스 서비스 기동
 
 cd book
 
