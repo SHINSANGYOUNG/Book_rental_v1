@@ -80,13 +80,7 @@ phases:
                   - name: $_PROJECT_NAME
                     image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$_PROJECT_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION
                     ports:
-                      - containerPort: 8080
-                    env:
-                    - name: apiurl
-                      valueFrom:
-                        configMapKeyRef:
-                          name: library-configmap
-                          key: apiurl                       
+                      - containerPort: 8080               
                     resources:
                       requests:
                         cpu: "250m"
